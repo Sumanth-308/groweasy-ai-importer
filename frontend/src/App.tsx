@@ -5,6 +5,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState("");
+  const [imported, setImported] = useState(false);
 
   const handleUpload = async () => {
     if (!file) {
@@ -15,6 +16,7 @@ function App() {
     setLoading(true);
     setError("");
     setResult(null);
+    setImported(false);
 
     const formData = new FormData();
     formData.append("file", file);
@@ -39,10 +41,14 @@ function App() {
     }
   };
 
+  const handleImport = () => {
+    setImported(true);
+  };
+
   return (
     <main
       style={{
-        maxWidth: "900px",
+        maxWidth: "1000px",
         margin: "40px auto",
         fontFamily: "Arial, sans-serif",
       }}
@@ -74,17 +80,93 @@ function App() {
 
       {result && (
         <>
-          <h2>Response</h2>
+          <section style={{ marginTop: 30 }}>
+            <h2>CSV Preview</h2>
 
-          <pre
-            style={{
-              background: "#f5f5f5",
-              padding: "16px",
-              overflow: "auto",
-            }}
-          >
-            {JSON.stringify(result, null, 2)}
-          </pre>
+            <p>
+              <b>File:</b> {result.filename}
+            </p>
+
+            <p>
+              <b>Total Rows:</b> {result.rowCount}
+            </p>
+
+            <table
+              border={1}
+              cellPadding={8}
+              style={{
+                borderCollapse: "collapse",
+                width: "100%",
+              }}
+            >
+              <thead>
+                <tr>
+                  {result.headers.map((header: string) => (
+                    <th key={header}>{header}</th>
+                  ))}
+                </tr>
+              </thead>
+
+              <tbody>
+                {result.preview.map((row: any, index: number) => (
+                  <tr key={index}>
+                    {result.headers.map((header: string) => (
+                      <td key={header}>
+                        {row[header]}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </section>
+
+          <section style={{ marginTop: 40 }}>
+            <h2>AI Mapping Preview</h2>
+
+            <table
+              border={1}
+              cellPadding={8}
+              style={{
+                borderCollapse: "collapse",
+                width: "100%",
+              }}
+            >
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Company</th>
+                  <th>Confidence</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {result.aiMapping.map((item: any, index: number) => (
+                  <tr key={index}>
+                    <td>{item.mapping.name || "-"}</td>
+                    <td>{item.mapping.email || "-"}</td>
+                    <td>{item.mapping.phone || "-"}</td>
+                    <td>{item.mapping.company || "-"}</td>
+                    <td>{item.confidence}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            <br />
+
+            <button onClick={handleImport}>
+              Confirm Import
+            </button>
+
+            {imported && (
+              <p style={{ marginTop: 15 }}>
+                Import confirmed successfully.
+              </p>
+            )}
+          </section>
         </>
       )}
     </main>
