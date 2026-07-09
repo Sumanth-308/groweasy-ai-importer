@@ -31,7 +31,7 @@ function CsvPreviewTable({
         </div>
         <div className="stat-card">
           <span className="stat-card-label">AI Provider</span>
-          <span className="stat-card-value">Gemini</span>
+          <span className="stat-card-value">🤖 Gemini AI</span>
         </div>
       </div>
 

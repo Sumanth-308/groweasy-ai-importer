@@ -11,6 +11,7 @@ function App() {
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState("");
   const [imported, setImported] = useState(false);
+  const [aiMapping, setAiMapping] = useState<any>(null);
 
   const handleUpload = async () => {
     if (!file) {
@@ -46,10 +47,36 @@ function App() {
     }
   };
 
-  const handleImport = () => {
-    setImported(true);
+  const handleImport = async () => {
+    if (!result?.preview) {
+      return;
+    }
+  
+    try {
+      const response = await fetch("http://localhost:5000/api/import", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          records: result.preview,
+        }),
+      });
+  
+      const data = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(data.message || "Import failed");
+      }
+  
+      console.log("Import response:", data);
+      console.log("AI MAPPING DATA:", data.aiMapping);
+      setAiMapping(data.aiMapping);
+      setImported(true);
+    } catch (err: any) {
+      setError(err.message);
+    }
   };
-
   return (
     <main className="dashboard">
       <Header />
@@ -71,14 +98,25 @@ function App() {
             preview={result.preview}
           />
 
-          <section className="card" aria-labelledby="ai-mapping-heading">
-            <AiMappingTable
-              aiMapping={result.aiMapping}
-              onConfirmImport={handleImport}
-            />
+<button
+  className="primary-button"
+  onClick={handleImport}
+>
+  Confirm Import
+</button>
 
-            {imported && <SuccessMessage />}
-          </section>
+{imported && <SuccessMessage />}
+
+<section className="card" aria-labelledby="ai-mapping-heading">
+  {aiMapping && (
+    <AiMappingTable
+      aiMapping={aiMapping}
+      onConfirmImport={handleImport}
+    />
+  )}
+
+  {imported && <SuccessMessage />}
+</section>
         </div>
       )}
 

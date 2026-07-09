@@ -47,7 +47,7 @@ function UploadSection({
 
         {selectedFile && (
           <p className="selected-filename">
-            <span className="selected-filename-label">Selected:</span>
+            <span className="selected-filename-label">📄 Selected file:</span>
             {selectedFile.name}
           </p>
         )}

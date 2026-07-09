@@ -1,15 +1,19 @@
-interface AiMappingItem {
-  mapping: {
-    name?: string;
-    email?: string;
-    phone?: string;
-    company?: string;
-  };
-  confidence: number | string;
+interface ImportedRecord {
+  name?: string;
+  email?: string;
+  phone?: string;
+  company?: string;
+  city?: string;
+  crm_status?: string;
+}
+
+interface AiMappingResponse {
+  importedRecords: ImportedRecord[];
+  skippedRecords: any[];
 }
 
 interface AiMappingTableProps {
-  aiMapping: AiMappingItem[];
+  aiMapping: AiMappingResponse;
   onConfirmImport: () => void;
 }
 
@@ -34,6 +38,25 @@ function formatConfidenceLabel(confidence: number | string): string {
 function AiMappingTable({ aiMapping, onConfirmImport }: AiMappingTableProps) {
   return (
     <>
+    <section className="card">
+  <h2>Import Summary</h2>
+
+  <p>
+    <strong>Imported Records:</strong>{" "}
+    {aiMapping.importedRecords.length}
+  </p>
+
+  <p>
+    <strong>Skipped Records:</strong>{" "}
+    {aiMapping.skippedRecords.length}
+  </p>
+
+  <p>
+    <strong>Total Processed:</strong>{" "}
+    {aiMapping.importedRecords.length +
+      aiMapping.skippedRecords.length}
+  </p>
+</section>
       <h2 id="ai-mapping-heading" className="card-title">
         AI Mapping Preview
       </h2>
@@ -49,24 +72,20 @@ function AiMappingTable({ aiMapping, onConfirmImport }: AiMappingTableProps) {
               <th scope="col">Email</th>
               <th scope="col">Phone</th>
               <th scope="col">Company</th>
-              <th scope="col">Confidence</th>
+              <th scope="col">Status</th>
             </tr>
           </thead>
           <tbody>
-            {aiMapping.map((item, index) => (
-              <tr key={index}>
-                <td>{item.mapping.name || "-"}</td>
-                <td>{item.mapping.email || "-"}</td>
-                <td>{item.mapping.phone || "-"}</td>
-                <td>{item.mapping.company || "-"}</td>
-                <td>
-                  <span className={getConfidenceBadgeClass(item.confidence)}>
-                    {formatConfidenceLabel(item.confidence)}
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+  {aiMapping.importedRecords.map((item, index) => (
+    <tr key={index}>
+      <td>{item.name || "-"}</td>
+      <td>{item.email || "-"}</td>
+      <td>{item.phone || "-"}</td>
+      <td>{item.company || "-"}</td>
+      <td>{item.crm_status || "-"}</td>
+    </tr>
+  ))}
+</tbody>
         </table>
       </div>
 
