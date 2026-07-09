@@ -1,4 +1,9 @@
 import { useState } from "react";
+import Header from "./components/Header";
+import UploadSection from "./components/UploadSection";
+import CsvPreviewTable from "./components/CsvPreviewTable";
+import AiMappingTable from "./components/AiMappingTable";
+import SuccessMessage from "./components/SuccessMessage";
 
 function App() {
   const [file, setFile] = useState<File | null>(null);
@@ -46,129 +51,40 @@ function App() {
   };
 
   return (
-    <main
-      style={{
-        maxWidth: "1000px",
-        margin: "40px auto",
-        fontFamily: "Arial, sans-serif",
-      }}
-    >
-      <h1>GrowEasy AI CSV Importer</h1>
+    <main className="dashboard">
+      <Header />
 
-      <input
-        type="file"
-        accept=".csv"
-        onChange={(e) => {
-          if (e.target.files?.length) {
-            setFile(e.target.files[0]);
-          }
-        }}
+      <UploadSection
+        loading={loading}
+        error={error}
+        selectedFile={file}
+        onFileChange={setFile}
+        onUpload={handleUpload}
       />
 
-      <br />
-      <br />
-
-      <button onClick={handleUpload} disabled={loading}>
-        {loading ? "Uploading..." : "Upload CSV"}
-      </button>
-
-      {error && (
-        <p style={{ color: "red", marginTop: 20 }}>
-          {error}
-        </p>
-      )}
-
       {result && (
-        <>
-          <section style={{ marginTop: 30 }}>
-            <h2>CSV Preview</h2>
+        <div className="results">
+          <CsvPreviewTable
+            filename={result.filename}
+            rowCount={result.rowCount}
+            headers={result.headers}
+            preview={result.preview}
+          />
 
-            <p>
-              <b>File:</b> {result.filename}
-            </p>
+          <section className="card" aria-labelledby="ai-mapping-heading">
+            <AiMappingTable
+              aiMapping={result.aiMapping}
+              onConfirmImport={handleImport}
+            />
 
-            <p>
-              <b>Total Rows:</b> {result.rowCount}
-            </p>
-
-            <table
-              border={1}
-              cellPadding={8}
-              style={{
-                borderCollapse: "collapse",
-                width: "100%",
-              }}
-            >
-              <thead>
-                <tr>
-                  {result.headers.map((header: string) => (
-                    <th key={header}>{header}</th>
-                  ))}
-                </tr>
-              </thead>
-
-              <tbody>
-                {result.preview.map((row: any, index: number) => (
-                  <tr key={index}>
-                    {result.headers.map((header: string) => (
-                      <td key={header}>
-                        {row[header]}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            {imported && <SuccessMessage />}
           </section>
-
-          <section style={{ marginTop: 40 }}>
-            <h2>AI Mapping Preview</h2>
-
-            <table
-              border={1}
-              cellPadding={8}
-              style={{
-                borderCollapse: "collapse",
-                width: "100%",
-              }}
-            >
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Phone</th>
-                  <th>Company</th>
-                  <th>Confidence</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {result.aiMapping.map((item: any, index: number) => (
-                  <tr key={index}>
-                    <td>{item.mapping.name || "-"}</td>
-                    <td>{item.mapping.email || "-"}</td>
-                    <td>{item.mapping.phone || "-"}</td>
-                    <td>{item.mapping.company || "-"}</td>
-                    <td>{item.confidence}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-
-            <br />
-
-            <button onClick={handleImport}>
-              Confirm Import
-            </button>
-
-            {imported && (
-              <p style={{ marginTop: 15 }}>
-                Import confirmed successfully.
-              </p>
-            )}
-          </section>
-        </>
+        </div>
       )}
+
+      <footer className="page-footer">
+        © 2026 GrowEasy AI Importer • Built with React • Express • Gemini AI
+      </footer>
     </main>
   );
 }
