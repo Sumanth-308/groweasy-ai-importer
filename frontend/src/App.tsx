@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect,useState } from "react";
 import Header from "./components/Header";
 import UploadSection from "./components/UploadSection";
 import CsvPreviewTable from "./components/CsvPreviewTable";
@@ -12,7 +12,14 @@ function App() {
   const [error, setError] = useState("");
   const [imported, setImported] = useState(false);
   const [aiMapping, setAiMapping] = useState<any>(null);
-
+  const [importLoading, setImportLoading] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("theme") === "dark";
+  });
+  useEffect(() => {
+    document.body.classList.toggle("dark", darkMode);
+    localStorage.setItem("theme", darkMode ? "dark" : "light");
+  }, [darkMode]);
   const handleUpload = async () => {
     if (!file) {
       alert("Please select a CSV file.");
@@ -48,9 +55,11 @@ function App() {
   };
 
   const handleImport = async () => {
+    console.log("Confirm Import clicked");
     if (!result?.preview) {
       return;
     }
+    setImportLoading(true);
   
     try {
       const response = await fetch("http://localhost:5000/api/import", {
@@ -75,11 +84,13 @@ function App() {
       setImported(true);
     } catch (err: any) {
       setError(err.message);
+    } finally {
+      setImportLoading(false);
     }
   };
   return (
     <main className="dashboard">
-      <Header />
+      <Header darkMode={darkMode} setDarkMode={setDarkMode} />
 
       <UploadSection
         loading={loading}
@@ -98,12 +109,15 @@ function App() {
             preview={result.preview}
           />
 
-<button
-  className="primary-button"
+{!imported && (
+  <button
+  className="btn btn-primary btn-block"
   onClick={handleImport}
+  disabled={importLoading}
 >
-  Confirm Import
+  {importLoading ? "Importing with AI..." : "Confirm Import"}
 </button>
+)}
 
 {imported && <SuccessMessage />}
 
@@ -111,12 +125,10 @@ function App() {
   {aiMapping && (
     <AiMappingTable
       aiMapping={aiMapping}
-      onConfirmImport={handleImport}
     />
   )}
-
-  {imported && <SuccessMessage />}
 </section>
+
         </div>
       )}
 

@@ -1,3 +1,4 @@
+import { useState } from "react";
 interface UploadSectionProps {
   loading: boolean;
   error: string;
@@ -13,19 +14,38 @@ function UploadSection({
   onFileChange,
   onUpload,
 }: UploadSectionProps) {
+  const [isDragging, setIsDragging] = useState(false);
   return (
     <section className="card" aria-labelledby="upload-heading">
       <h2 id="upload-heading" className="card-title">
-        Upload CSV
-      </h2>
+  📂 Upload CSV File
+</h2>
       <p className="card-description">
-        Select a CSV file from your computer to begin the AI mapping process.
+      Upload your customer CSV file to preview the data. AI will intelligently map your columns to the GrowEasy CRM schema before import.
       </p>
 
       <div className="upload-actions">
-        <div className="file-picker">
-          <label className="file-picker-label">
-            <input
+      <div
+  className="file-picker"
+  onDragOver={(e) => {
+    e.preventDefault();
+    setIsDragging(true);
+  }}
+  onDragLeave={() => setIsDragging(false)}
+  onDrop={(e) => {
+    e.preventDefault();
+    setIsDragging(false);
+
+    const droppedFile = e.dataTransfer.files[0];
+
+    if (droppedFile && droppedFile.name.toLowerCase().endsWith(".csv")) {
+      onFileChange(droppedFile);
+    }
+  }}
+>
+<label
+  className={`file-picker-label ${isDragging ? "drag-active" : ""}`}
+>            <input
               type="file"
               accept=".csv"
               className="file-picker-input"
@@ -36,12 +56,22 @@ function UploadSection({
               }}
             />
             <span className="file-picker-icon" aria-hidden="true">
-              ↑
+            📂
+
             </span>
             <span>
-              <span className="file-picker-text">Choose CSV file</span>
-              <span className="file-picker-hint">Only .csv files are supported</span>
-            </span>
+  <span className="file-picker-text">
+    {isDragging
+      ? "📥 Drop your CSV file here"
+      : "📂 Choose a CSV file or drag & drop it here"}
+  </span>
+
+  <span className="file-picker-hint">
+    {isDragging
+      ? "Release to select the file"
+      : "Supported format: .csv"}
+  </span>
+</span>
           </label>
         </div>
 

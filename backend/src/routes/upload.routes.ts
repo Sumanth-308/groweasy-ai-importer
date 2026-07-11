@@ -46,6 +46,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
 });
 
 router.post("/import", async (req, res) => {
+  console.log("🚀 /api/import endpoint called");
   let records: any[] = [];
 
   try {
@@ -110,9 +111,10 @@ Input CSV records:
 ${JSON.stringify(records, null, 2)}
 `;
 
-    const aiResponse = await model.generateContent(prompt);
-
-    const text = aiResponse.response.text();
+console.log("🤖 Calling Gemini...");
+const aiResponse = await model.generateContent(prompt);
+console.log("✅ Gemini responded successfully");
+const text = aiResponse.response.text();
 
     const cleaned = text
       .replace(/```json/g, "")
@@ -120,13 +122,15 @@ ${JSON.stringify(records, null, 2)}
       .trim();
 
     const aiMapping = JSON.parse(cleaned);
-
+    console.log("✅ AI mapping generated successfully");
     res.json({
       aiMapping,
     });
 
   } catch (error: any) {
+    console.error("❌ Import Error:", error);
     if (error?.status === 429) {
+      console.log("🟡 Gemini quota exceeded. Using fallback mapping.");
       return res.json({
         aiMapping: {
           importedRecords: records.map((record: any) => ({

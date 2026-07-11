@@ -1,7 +1,7 @@
 interface ImportedRecord {
   name?: string;
   email?: string;
-  phone?: string;
+  mobile_without_country_code?: string;
   company?: string;
   city?: string;
   crm_status?: string;
@@ -14,7 +14,7 @@ interface AiMappingResponse {
 
 interface AiMappingTableProps {
   aiMapping: AiMappingResponse;
-  onConfirmImport: () => void;
+  
 }
 
 function getConfidenceBadgeClass(confidence: number | string): string {
@@ -35,34 +35,45 @@ function formatConfidenceLabel(confidence: number | string): string {
   return String(confidence);
 }
 
-function AiMappingTable({ aiMapping, onConfirmImport }: AiMappingTableProps) {
+function AiMappingTable({
+  aiMapping,
+}: AiMappingTableProps) {
   return (
     <>
-    <section className="card">
-  <h2>Import Summary</h2>
+<section className="card">
+  <h2 className="card-title">📊 Import Summary</h2>
 
-  <p>
-    <strong>Imported Records:</strong>{" "}
-    {aiMapping.importedRecords.length}
-  </p>
+  <div className="stats-row">
+    <div className="stat-card">
+      <span className="stat-card-label">Imported</span>
+      <span className="stat-card-value">
+        {aiMapping.importedRecords.length}
+      </span>
+    </div>
 
-  <p>
-    <strong>Skipped Records:</strong>{" "}
-    {aiMapping.skippedRecords.length}
-  </p>
+    <div className="stat-card">
+      <span className="stat-card-label">Skipped</span>
+      <span className="stat-card-value">
+        {aiMapping.skippedRecords.length}
+      </span>
+    </div>
 
-  <p>
-    <strong>Total Processed:</strong>{" "}
-    {aiMapping.importedRecords.length +
-      aiMapping.skippedRecords.length}
-  </p>
+    <div className="stat-card">
+      <span className="stat-card-label">Total Processed</span>
+      <span className="stat-card-value">
+        {aiMapping.importedRecords.length +
+          aiMapping.skippedRecords.length}
+      </span>
+    </div>
+  </div>
 </section>
-      <h2 id="ai-mapping-heading" className="card-title">
-        AI Mapping Preview
-      </h2>
-      <p className="card-description">
-        Review how AI mapped your CSV columns to CRM fields before confirming.
-      </p>
+<h2 id="ai-mapping-heading" className="card-title">
+  🤖 AI Mapping Preview
+</h2>
+
+<p className="card-description">
+  AI has intelligently mapped your uploaded CSV data to the GrowEasy CRM schema.
+</p>
 
       <div className="table-wrapper">
         <table className="data-table" aria-labelledby="ai-mapping-heading">
@@ -80,7 +91,7 @@ function AiMappingTable({ aiMapping, onConfirmImport }: AiMappingTableProps) {
     <tr key={index}>
       <td>{item.name || "-"}</td>
       <td>{item.email || "-"}</td>
-      <td>{item.phone || "-"}</td>
+      <td>{item.mobile_without_country_code || "-"}</td>
       <td>{item.company || "-"}</td>
       <td>{item.crm_status || "-"}</td>
     </tr>
@@ -88,14 +99,6 @@ function AiMappingTable({ aiMapping, onConfirmImport }: AiMappingTableProps) {
 </tbody>
         </table>
       </div>
-
-      <button
-        type="button"
-        className="btn btn-primary btn-block"
-        onClick={onConfirmImport}
-      >
-        Confirm Import
-      </button>
     </>
   );
 }

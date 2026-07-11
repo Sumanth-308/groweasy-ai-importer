@@ -1,0 +1,11 @@
+lead_id,customer_name,primary_email,mobile_number,organization,department,designation,city,created_date,status
+1001,Rahul Sharma,rahul@gmail.com,9876543210,Infosys,Engineering,Software Engineer,Hyderabad,2026-07-01,Active
+1002,Priya Reddy,priya@yahoo.com,9988776655,TCS,HR,HR Manager,Bengaluru,2026-07-02,Active
+1003,Amit Kumar,amit@hotmail.com,9123456789,Wipro,Finance,Analyst,Pune,2026-07-03,Inactive
+1004,Sneha Verma,sneha@gmail.com,9871234567,Accenture,Consulting,Associate,Mumbai,2026-07-04,Active
+1005,Kiran Rao,kiran@gmail.com,9988123456,Cognizant,Technology,Developer,Chennai,2026-07-05,Pending
+1006,Meera Nair,meera@gmail.com,9876549876,IBM,Research,Engineer,Kochi,2026-07-06,Active
+1007,Rohit Singh,rohit@gmail.com,9123498765,Google,Cloud,Cloud Engineer,Hyderabad,2026-07-07,Active
+1008,Ananya Gupta,ananya@gmail.com,9876509876,Microsoft,AI,Data Scientist,Bengaluru,2026-07-08,Inactive
+1009,Vikram Patel,vikram@gmail.com,9988771122,Amazon,Operations,Manager,Pune,2026-07-09,Active
+1010,Nisha Sharma,nisha@gmail.com,9876612345,Oracle,Database,DBA,Noida,2026-07-10,Active
