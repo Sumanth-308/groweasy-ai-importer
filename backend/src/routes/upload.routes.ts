@@ -129,7 +129,11 @@ const text = aiResponse.response.text();
 
   } catch (error: any) {
     console.error("❌ Import Error:", error);
-    if (error?.status === 429) {
+      if (
+        error?.status === 429 ||
+        error?.status === 401 ||
+        error?.status === 403
+      ) {
       console.log("🟡 Gemini quota exceeded. Using fallback mapping.");
       return res.json({
         aiMapping: {
