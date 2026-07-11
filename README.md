@@ -305,16 +305,16 @@ If the Gemini API quota is exceeded, the backend automatically switches to a fal
 # 📸 Screenshots
 
 ## Home Screen
-![Home Screen](./screenshots/home-screen.png)
+<img src="./screenshots/home-screen.png?raw=true" width="900"/>
 
 ## CSV Preview
-![CSV Preview](./screenshots/csv-preview.png)
+<img src="./screenshots/csv-preview.png?raw=true" width="900"/>
 
 ## AI Mapping Preview & Summary
-![AI Mapping Preview](./screenshots/ai-mapping-preview.png)
+<img src="./screenshots/ai-mapping-preview.png?raw=true" width="900"/>
 
 ## Dark Mode
-![Dark Mode](./screenshots/dark-mode.png)
+<img src="./screenshots/dark-mode.png?raw=true" width="900"/>
 
 ---
 
