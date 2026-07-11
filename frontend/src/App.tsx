@@ -120,8 +120,6 @@ function App() {
 </button>
 )}
 
-{imported && <SuccessMessage />}
-
 <section className="card" aria-labelledby="ai-mapping-heading">
   {aiMapping && (
     <AiMappingTable
@@ -129,6 +127,8 @@ function App() {
     />
   )}
 </section>
+
+{imported && <SuccessMessage />}
 
         </div>
       )}

@@ -8,6 +8,16 @@ Built using **React**, **TypeScript**, **Express**, and **Google Gemini AI** wit
 
 ---
 
+# 🌐 Live Demo
+
+Frontend:
+https://groweasy-ai-importer-six.vercel.app/
+
+Backend:
+https://groweasy-ai-importer-nxjk.onrender.com
+
+---
+
 # ✨ Features
 
 - 📁 Upload CSV files
@@ -198,10 +208,7 @@ npm run dev
 ```
 
 Backend runs on:
-
-```
-http://localhost:5000
-```
+http://localhost:5000/
 
 ---
 
@@ -228,11 +235,7 @@ npm run dev
 ```
 
 Frontend runs on:
-
-```
-http://localhost:5173
-```
-
+http://localhost:5173/
 ---
 
 # 🚀 How to Use
@@ -301,13 +304,17 @@ If the Gemini API quota is exceeded, the backend automatically switches to a fal
 
 # 📸 Screenshots
 
-> Add screenshots here after deployment.
+## Home Screen
+(screenshots/home-screen.png)
 
-- Home Screen
-- CSV Preview
-- AI Mapping Preview
-- Import Summary
-- Dark Mode
+## CSV Preview
+(screenshots/csv-preview.png)
+
+## AI Mapping Preview & Summary
+(screenshots/ai-mapping-preview.png)
+
+## Dark Mode
+(screenshots/dark-mode.png)
 
 ---
 
@@ -315,13 +322,47 @@ If the Gemini API quota is exceeded, the backend automatically switches to a fal
 
 ## Frontend
 
-Deploy using **Vercel**.
+- Platform: **Vercel**
+- Live URL: https://groweasy-ai-importer-six.vercel.app/
+- Environment variable:
+
+```env
+VITE_API_URL=https://groweasy-ai-importer-nxjk.onrender.com
+```
 
 ## Backend
 
-Deploy using **Render**.
+- Platform: **Render**
+- Live URL: https://groweasy-ai-importer-nxjk.onrender.com
+- Gemini API key stored securely using environment variables
 
-After deployment, update the frontend API URL to point to the deployed backend instead of `http://localhost:5000`.
+---
+
+# 🧩 Challenges & Solutions
+
+## Gemini API Reliability
+
+**Challenge:**
+Gemini API can fail because of authentication issues or quota limits.
+
+**Solution:**
+Implemented fallback mapping so imports continue even when Gemini is unavailable.
+
+## Dynamic CSV Structures
+
+**Challenge:**
+Different CSV files have different column names.
+
+**Solution:**
+Used semantic AI mapping instead of fixed column matching.
+
+## Production Deployment
+
+**Challenge:**
+Frontend and backend deployed separately.
+
+**Solution:**
+Configured CORS, environment variables, and production API communication.
 
 ---
 
