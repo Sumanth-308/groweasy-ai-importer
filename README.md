@@ -1,20 +1,31 @@
-# GrowEasy AI Importer
+# 🚀 GrowEasy AI Importer
 
-AI-powered CSV importer that automatically maps uploaded customer data into a CRM-friendly format using Google Gemini AI.
+An AI-powered CSV Importer that intelligently maps uploaded customer data into a CRM-ready format using **Google Gemini AI**.
 
-## Features
+Instead of relying on fixed column names, the application uses semantic AI mapping to understand different CSV structures and transform them into the GrowEasy CRM schema.
 
-- Upload CSV files
-- Parse CSV data automatically
-- Preview uploaded CSV records
-- AI-powered semantic column mapping
-- Confidence score for AI-generated mappings
-- Review AI-transformed data before import
-- Simple responsive user interface
+Built using **React**, **TypeScript**, **Express**, and **Google Gemini AI** with a focus on clean architecture, responsive UI, and robust error handling.
 
 ---
 
-# Tech Stack
+# ✨ Features
+
+- 📁 Upload CSV files
+- 📥 Drag & Drop CSV upload
+- 👀 Preview uploaded CSV data before AI processing
+- 🤖 AI-powered semantic field mapping using Google Gemini
+- 📋 CRM-ready data transformation
+- 📊 Import Summary (Imported, Skipped, Total Processed)
+- 📄 AI Mapping Preview table
+- ⚡ Automatic fallback mapping when Gemini API quota is exceeded
+- 🌙 Dark / Light Mode with theme persistence
+- 📱 Fully responsive UI
+- ⏳ Loading indicators during upload and AI import
+- 🛡️ Error handling and validation
+
+---
+
+# 🛠 Tech Stack
 
 ## Frontend
 
@@ -34,67 +45,135 @@ AI-powered CSV importer that automatically maps uploaded customer data into a CR
 ## AI
 
 - Google Gemini API
+- Gemini 2.5 Flash
 
 ---
 
-# Architecture
+# 🏗 Architecture
 
-```
-React Frontend
-      |
-      | CSV Upload
-      ↓
-Express Backend API
-      |
-      | CSV Parsing
-      ↓
-PapaParse
-      |
-      | Semantic Mapping Request
-      ↓
-Google Gemini AI
-      |
-      ↓
-CRM Formatted Data
+```text
+                CSV Upload
+                     │
+                     ▼
+          React Frontend (Vite)
+                     │
+                     ▼
+         POST /api/upload (Express)
+                     │
+             Parse CSV (PapaParse)
+                     │
+                     ▼
+             Return Preview Data
+                     │
+                     ▼
+          User Confirms Import
+                     │
+                     ▼
+         POST /api/import (Express)
+                     │
+                     ▼
+          Google Gemini AI
+                     │
+         Semantic CRM Mapping
+                     │
+     (Fallback if Gemini quota is exceeded)
+                     │
+                     ▼
+      Import Summary + AI Mapping Preview
 ```
 
 ---
 
-# Project Structure
+# 📁 Project Structure
 
-```
+```text
 groweasy-ai-importer/
-
+│
 ├── backend/
 │   ├── src/
-│   │   ├── app.ts
-│   │   ├── server.ts
-│   │   ├── gemini.ts
+│   │   ├── routes/
+│   │   │   └── upload.routes.ts
 │   │   ├── crm.schema.ts
-│   │   └── routes/
-│   │       └── upload.routes.ts
+│   │   ├── gemini.ts
+│   │   └── server.ts
 │   │
+│   ├── .env
 │   ├── package.json
+│   ├── package-lock.json
 │   └── tsconfig.json
 │
 ├── frontend/
 │   ├── src/
+│   │   ├── components/
+│   │   │   ├── AiMappingTable.tsx
+│   │   │   ├── CsvPreviewTable.tsx
+│   │   │   ├── Header.tsx
+│   │   │   ├── SuccessMessage.tsx
+│   │   │   └── UploadSection.tsx
+│   │   │
 │   │   ├── App.tsx
-│   │   └── index.css
+│   │   ├── index.css
+│   │   └── main.tsx
 │   │
 │   ├── package.json
+│   ├── package-lock.json
+│   ├── tsconfig.json
 │   └── vite.config.ts
 │
-└── README.md
+├── README.md
+└── .gitignore
+```
+
+The project follows a clear separation of concerns:
+- **Frontend** handles user interaction and presentation.
+- **Backend** handles CSV parsing, AI integration, and CRM data transformation.
+
+---
+
+# 🔄 Application Workflow
+
+```text
+CSV Upload
+      │
+      ▼
+CSV Preview
+      │
+      ▼
+Confirm Import
+      │
+      ▼
+Google Gemini AI
+      │
+      ├── Success → CRM Mapping
+      │
+      └── Quota Exceeded → Dynamic Fallback Mapping
+      │
+      ▼
+Import Summary
+      │
+      ▼
+AI Mapping Preview
+      │
+      ▼
+Import Complete
 ```
 
 ---
 
-# Setup Instructions
+# ⚙️ Setup Instructions
+
+## Clone the Repository
+
+```bash
+git clone <repository-url>
+cd groweasy-ai-importer
+```
+
+---
 
 ## Backend Setup
 
-Open terminal inside the backend folder:
+Navigate to the backend folder:
 
 ```bash
 cd backend
@@ -106,27 +185,19 @@ Install dependencies:
 npm install
 ```
 
-Create a file named:
+Create a `.env` file:
 
-```
-.env
-```
-
-inside the backend folder.
-
-Add:
-
-```
-GEMINI_API_KEY=your_gemini_api_key_here
+```env
+GEMINI_API_KEY=your_gemini_api_key
 ```
 
-Start backend server:
+Start the backend:
 
 ```bash
 npm run dev
 ```
 
-Backend will run on:
+Backend runs on:
 
 ```
 http://localhost:5000
@@ -138,7 +209,7 @@ http://localhost:5000
 
 Open another terminal.
 
-Go to frontend folder:
+Navigate to the frontend folder:
 
 ```bash
 cd frontend
@@ -150,13 +221,13 @@ Install dependencies:
 npm install
 ```
 
-Start frontend:
+Start the frontend:
 
 ```bash
 npm run dev
 ```
 
-Frontend will run on:
+Frontend runs on:
 
 ```
 http://localhost:5173
@@ -164,96 +235,111 @@ http://localhost:5173
 
 ---
 
-# How To Use
+# 🚀 How to Use
 
-1. Open the frontend application.
-2. Click "Choose File".
-3. Select a CSV file.
-4. Click "Upload CSV".
-5. Review uploaded CSV preview.
-6. Review AI mapping results.
-7. Click "Confirm Import".
-
----
-
-# API Documentation
-
-## Upload CSV
-
-### Endpoint
-
-```
-POST /api/upload
-```
-
-### Input
-
-CSV file using multipart/form-data.
-
-### Response
-
-Returns:
-
-- filename
-- CSV headers
-- row count
-- preview records
-- AI mapped records
-- confidence score
-
-Example:
-
-```json
-{
-  "filename": "customers.csv",
-  "rowCount": 3,
-  "aiMapping": [
-    {
-      "mapping": {
-        "name": "John Doe",
-        "email": "john@example.com",
-        "phone": "9876543210",
-        "company": "Google"
-      },
-      "confidence": "high"
-    }
-  ]
-}
-```
+1. Launch the frontend application.
+2. Upload a CSV file using the file picker or Drag & Drop.
+3. Review the CSV Preview.
+4. Click **Confirm Import**.
+5. Google Gemini intelligently maps CSV fields into the GrowEasy CRM schema.
+6. If Gemini API quota is exceeded, the application automatically switches to a dynamic fallback mapper.
+7. Review the Import Summary and AI Mapping Preview.
+8. Import completed successfully.
 
 ---
 
-# AI Mapping Logic
+# 📡 API Endpoints
 
-The system uses Gemini AI to understand column meaning instead of only matching exact names.
+## POST `/api/upload`
 
-Examples:
+Uploads a CSV file and returns:
 
-```
-full_name → name
+- Filename
+- CSV Headers
+- Row Count
+- Preview Records
 
-customer_name → name
+---
 
-email_id → email
+## POST `/api/import`
 
-mobile_number → phone
+Processes preview records using Gemini AI and returns:
 
-organization → company
+- Imported CRM Records
+- Skipped Records
+- Import Summary
+- Dynamic Fallback Mapping (when Gemini quota is exceeded)
+
+---
+
+# 🤖 AI Mapping Logic
+
+The application uses **Google Gemini AI** to understand the meaning of CSV columns rather than relying on exact column names.
+
+Example mappings:
+
+```text
+full_name          → name
+customer_name      → name
+email_id           → email
+mobile_number      → phone
+organization       → company
+company_name       → company
+location           → city
 ```
 
 The AI:
 
-- Preserves original values
-- Avoids hallucinated data
-- Returns structured JSON
-- Provides confidence level
+- Maps fields semantically
+- Preserves original values whenever possible
+- Avoids inventing missing data
+- Returns structured JSON for CRM import
+
+If the Gemini API quota is exceeded, the backend automatically switches to a fallback mapper that intelligently maps common CSV field names without interrupting the import process.
 
 ---
 
-# Future Improvements
+# 📸 Screenshots
+
+> Add screenshots here after deployment.
+
+- Home Screen
+- CSV Preview
+- AI Mapping Preview
+- Import Summary
+- Dark Mode
+
+---
+
+# 🚀 Deployment
+
+## Frontend
+
+Deploy using **Vercel**.
+
+## Backend
+
+Deploy using **Render**.
+
+After deployment, update the frontend API URL to point to the deployed backend instead of `http://localhost:5000`.
+
+---
+
+# 🔮 Future Improvements
 
 - Database integration
-- Authentication
+- User authentication
 - Import history
-- Advanced validation
-- Background processing
+- AI confidence scoring
+- Bulk import support
+- Docker support
+- Unit and integration testing
+- Export imported CRM data
+
+---
+
+# 👨‍💻 Author
+
+**Sumanth Guthi**
+
+Built as part of the **GrowEasy AI Importer Assessment** using React, TypeScript, Express, and Google Gemini AI.

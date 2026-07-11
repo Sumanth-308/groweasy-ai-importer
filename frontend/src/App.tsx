@@ -4,6 +4,7 @@ import UploadSection from "./components/UploadSection";
 import CsvPreviewTable from "./components/CsvPreviewTable";
 import AiMappingTable from "./components/AiMappingTable";
 import SuccessMessage from "./components/SuccessMessage";
+const API_URL = import.meta.env.VITE_API_URL;
 
 function App() {
   const [file, setFile] = useState<File | null>(null);
@@ -35,7 +36,7 @@ function App() {
     formData.append("file", file);
 
     try {
-      const response = await fetch("http://localhost:5000/api/upload", {
+      const response = await fetch(`${API_URL}/api/upload`, {
         method: "POST",
         body: formData,
       });
@@ -62,7 +63,7 @@ function App() {
     setImportLoading(true);
   
     try {
-      const response = await fetch("http://localhost:5000/api/import", {
+      const response = await fetch(`${API_URL}/api/import`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
