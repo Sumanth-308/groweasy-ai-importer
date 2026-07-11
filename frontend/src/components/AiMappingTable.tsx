@@ -17,23 +17,6 @@ interface AiMappingTableProps {
   
 }
 
-function getConfidenceBadgeClass(confidence: number | string): string {
-  const level = String(confidence).toLowerCase();
-
-  if (level === "high") return "badge badge-high";
-  if (level === "medium") return "badge badge-medium";
-  if (level === "low") return "badge badge-low";
-  return "badge badge-default";
-}
-
-function formatConfidenceLabel(confidence: number | string): string {
-  const level = String(confidence).toLowerCase();
-
-  if (level === "high") return "🟢 High";
-  if (level === "medium") return "🟠 Medium";
-  if (level === "low") return "🔴 Low";
-  return String(confidence);
-}
 
 function AiMappingTable({
   aiMapping,

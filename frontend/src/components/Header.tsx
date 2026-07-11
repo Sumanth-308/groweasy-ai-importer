@@ -1,4 +1,3 @@
-import type { Dispatch, SetStateAction } from "react";
 interface HeaderProps {
   darkMode: boolean;
   setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
