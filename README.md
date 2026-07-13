@@ -1,8 +1,8 @@
-# 🚀 GrowEasy AI Importer
+# 🚀 ImportIQ
 
 An AI-powered CSV Importer that intelligently maps uploaded customer data into a CRM-ready format using **Google Gemini AI**.
 
-Instead of relying on fixed column names, the application uses semantic AI mapping to understand different CSV structures and transform them into the GrowEasy CRM schema.
+Instead of relying on fixed column names, the application uses semantic AI mapping to understand different CSV structures and transform them into the ImportIQ CRM schema.
 
 Built using **React**, **TypeScript**, **Express**, and **Google Gemini AI** with a focus on clean architecture, responsive UI, and robust error handling.
 
@@ -11,10 +11,10 @@ Built using **React**, **TypeScript**, **Express**, and **Google Gemini AI** wit
 # 🌐 Live Demo
 
 Frontend:
-https://groweasy-ai-importer-six.vercel.app/
+https://ImportIQ-ai-importer-six.vercel.app/
 
 Backend:
-https://groweasy-ai-importer-nxjk.onrender.com
+https://ImportIQ-ai-importer-nxjk.onrender.com
 
 ---
 
@@ -97,7 +97,7 @@ https://groweasy-ai-importer-nxjk.onrender.com
 # 📁 Project Structure
 
 ```text
-groweasy-ai-importer/
+ImportIQ-ai-importer/
 │
 ├── backend/
 │   ├── src/
@@ -176,7 +176,7 @@ Import Complete
 
 ```bash
 git clone <repository-url>
-cd groweasy-ai-importer
+cd ImportIQ-ai-importer
 ```
 
 ---
@@ -244,7 +244,7 @@ http://localhost:5173/
 2. Upload a CSV file using the file picker or Drag & Drop.
 3. Review the CSV Preview.
 4. Click **Confirm Import**.
-5. Google Gemini intelligently maps CSV fields into the GrowEasy CRM schema.
+5. Google Gemini intelligently maps CSV fields into the ImportIQ CRM schema.
 6. If Gemini API quota is exceeded, the application automatically switches to a dynamic fallback mapper.
 7. Review the Import Summary and AI Mapping Preview.
 8. Import completed successfully.
@@ -323,17 +323,17 @@ If the Gemini API quota is exceeded, the backend automatically switches to a fal
 ## Frontend
 
 - Platform: **Vercel**
-- Live URL: https://groweasy-ai-importer-six.vercel.app/
+- Live URL: https://ImportIQ-ai-importer-six.vercel.app/
 - Environment variable:
 
 ```env
-VITE_API_URL=https://groweasy-ai-importer-nxjk.onrender.com
+VITE_API_URL=https://ImportIQ-ai-importer-nxjk.onrender.com
 ```
 
 ## Backend
 
 - Platform: **Render**
-- Live URL: https://groweasy-ai-importer-nxjk.onrender.com
+- Live URL: https://ImportIQ-ai-importer-nxjk.onrender.com
 - Gemini API key stored securely using environment variables
 
 ---
@@ -383,4 +383,4 @@ Configured CORS, environment variables, and production API communication.
 
 **Sumanth Guthi**
 
-Built as part of the **GrowEasy AI Importer Assessment** using React, TypeScript, Express, and Google Gemini AI.
+Built as part of the **ImportIQ Assessment** using React, TypeScript, Express, and Google Gemini AI.

@@ -16,7 +16,7 @@ function Header({ darkMode, setDarkMode }: HeaderProps) {
 
       <span className="ai-badge">🤖 AI Powered</span>
 
-      <h1>GrowEasy AI Importer</h1>
+      <h1>ImportIQ</h1>
 
       <p>
         Upload a CSV file and let AI map it into CRM-ready data.

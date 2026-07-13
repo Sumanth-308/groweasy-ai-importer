@@ -21,7 +21,7 @@ function UploadSection({
   📂 Upload CSV File
 </h2>
       <p className="card-description">
-      Upload your customer CSV file to preview the data. AI will intelligently map your columns to the GrowEasy CRM schema before import.
+      Upload your customer CSV file to preview the data. AI will intelligently map your columns to the ImportIQ CRM schema before import.
       </p>
 
       <div className="upload-actions">

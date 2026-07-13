@@ -62,7 +62,7 @@ router.post("/import", async (req, res) => {
 You are an AI CRM data mapping engine.
 
 Your task:
-Convert CSV records into GrowEasy CRM format.
+Convert CSV records into ImportIQ CRM format.
 
 Target CRM fields:
 ${crmFields.join(", ")}

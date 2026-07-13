@@ -134,7 +134,7 @@ function App() {
       )}
 
       <footer className="page-footer">
-        © 2026 GrowEasy AI Importer • Built with React • Express • Gemini AI
+        © 2026 ImportIQ • Built with React • Express • Gemini AI
       </footer>
     </main>
   );

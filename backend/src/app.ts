@@ -11,7 +11,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://groweasy-ai-importer-six.vercel.app",
+      "https://ImportIQ-ai-importer-six.vercel.app",
     ],
   })
 );
@@ -20,7 +20,7 @@ app.use(express.json());
 
 // Base route
 app.get("/", (req, res) => {
-  res.send("🚀 GrowEasy AI Importer Backend is running!");
+  res.send("🚀 ImportIQ Backend is running!");
 });
 
 // Upload routes

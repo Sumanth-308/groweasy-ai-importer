@@ -55,7 +55,7 @@ function AiMappingTable({
 </h2>
 
 <p className="card-description">
-  AI has intelligently mapped your uploaded CSV data to the GrowEasy CRM schema.
+  AI has intelligently mapped your uploaded CSV data to the ImportIQ CRM schema.
 </p>
 
       <div className="table-wrapper">
